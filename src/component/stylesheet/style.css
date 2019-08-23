@@ -23,9 +23,9 @@
 }
 
 #banner {
-    background-image:  linear-gradient(to right, #a517ba, #5f1782);
+    background-image: linear-gradient(to right, #a517ba, #5f1782);
     padding-top:5%;
-    color: white; 
+    color: black; 
 }
 
 .bottom-img {
@@ -33,9 +33,12 @@
 }
 
 .promo-title {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 600;
-    margin-top: 100px;
+}
+
+.promo-text {
+    font-size: 30px;
 }
 
 
@@ -128,8 +131,8 @@
     font-family: 'Arial'
 }
 
-.card-img-top:hover {
-    opacity: 0.6;
+.txt{
+    color: black;
 }
 
 .card-group .card {
