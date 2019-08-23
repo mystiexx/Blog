@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import video from '../videos/video2.mp4'
+import video from '../videos/video1.webm'
 import color from '../images/color.png'
 import {Container, Row, Col} from 'react-bootstrap'
 
@@ -13,8 +13,8 @@ class Player extends Component {
                            <Col> 
                            <iframe className="fixed-top position-static mt-5" style={{width: 560, height:315}} src={video} frameBorder="0"
                             allow="encrypted-media" allowFullScreen></iframe>
-                            <h4 className="card-title">Stewie Sings Lucid Dreams </h4>
-                            <p className="card-text text-justify">Ad non id dolor magna sit ex aute aliquip sint nulla adipisicing ipsum aliquip eiusmod.
+                            <h4 className="card-title">{this.props.match.params.title}</h4>
+                            <p className="card-text text-justify" style={{overflow: 'auto'}}>Ad non id dolor magna sit ex aute aliquip sint nulla adipisicing ipsum aliquip eiusmod.
                              Excepteur laborum quis cillum mollit mollit proident aliqua sint aliquip non voluptate irure do. Nisi amet 
                              ipsum exercitation pariatur labore esse laboris nostrud anim aute proident non pariatur id. Velit fugiat duis 
                              Lorem anim velit fugiat eu dolor ea cillum. Nostrud esse fugiat cillum eu culpa. Elit nisi laboris nostrud nulla
