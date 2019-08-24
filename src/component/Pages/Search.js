@@ -8,9 +8,9 @@ class SearchBar extends Component{
             <div>
                 <section id="search">
                 <div className="container">
-                <div class="search-box">
-            <input type="text" class="search-txt" onChange={searchChange} placeholder="Type to search"/>
-            <div class="search-btn mb-5" href=""><FaSearch/></div>
+                <div className="search-box">
+            <input type="text" className="search-txt" onChange={searchChange} placeholder="Type to search"/>
+            <div className="search-btn mb-5" href=""><FaSearch/></div>
         </div>
 
                 </div>
