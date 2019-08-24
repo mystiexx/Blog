@@ -3,7 +3,6 @@ import Header from './Nav/Header';
 import Home from './Pages/Home';
 import SearchBar from './Pages/Search';
 import Body from './Pages/Body';
-import Content from './others/Content'
 import Player from './Pages/Player'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './stylesheet/style.css'
@@ -15,13 +14,24 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      content: Content,
+      content: [],
       searchfield: ''
     }
   }
   onSearchChange = (event) => {
     this.setState({ searchfield: event.target.value })
 
+  }
+
+  componentDidMount(){
+    fetch('http://localhost:6530/feed')
+    .then(response => response.json())
+    .then(feeds => {
+      console.log(feeds.feeds)
+      this.setState({
+        content: feeds.feeds
+      })
+    })
   }
   render() {
     const filteredContent = this.state.content.filter(content => {
@@ -39,7 +49,7 @@ class App extends Component {
           <Body content={filteredContent} />
           </div>}/>
 
-          <Route path="/stories/:id:title" render={props => <div>
+          <Route path="/stories/:id?/:title/:tagline/:desc" render={props => <div>
           <Player {...props}/> </div>} />       
       </div>
       </Router>
