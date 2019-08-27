@@ -1,10 +1,21 @@
 import React, { Component } from 'react'
 import bottom from '../images/bottom.png'
-
-
-
+import SearchBar from './Search';
+import Body from './Body'
 
 class Home extends Component {
+    constructor() {
+        super()
+        this.state = {
+          searchfield: ''
+        }
+      }
+      onSearchChange = (event) => {
+        this.setState({ searchfield: event.target.value })
+    
+      }
+    
+      
     render() {
         return (
             <div>
@@ -20,8 +31,10 @@ class Home extends Component {
 
                     </div>
                     <img src={bottom} className="bottom-img" />
-
                 </section>
+                <br/>
+                <SearchBar searchChange={this.onSearchChange}/>,
+                <Body />
             </div>
 
         )
