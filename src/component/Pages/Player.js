@@ -3,26 +3,27 @@ import color from '../images/color.png'
 import {Container, Row, Col} from 'react-bootstrap'
 
 class Player extends Component {
-    constructor(match){
-        super()
-        this.state = {
-            content: '',
-        }
+  constructor(){
+    super()
+    this.state={
+      content: {},
     }
+  }
 
     componentDidMount(){
-        const {match: {params}} = this.props;
-        fetch(`http://localhost:6530/feed/?id=${params}`)
+      const {match} = this.props
+      const data = fetch(`http://localhost:6530/feed/${match.params.id}`)
         .then(response => response.json())
-        .then(feed => {
+        .then(data => {
           this.setState({
-            content: feed.feeds
+            content: data
           })
-          console.log(this.state.content)
         })
       }
     render() {
+      const {content} = this.state
         return (
+          
             <div>
                <Container className="mt-5">
                 <section id="video">
@@ -30,8 +31,9 @@ class Player extends Component {
                            <Col> 
                            <iframe className="fixed-top position-static mt-5" style={{width: 560, height:315}} src={`https://www.youtube.com/embed/QhBnZ6NPOY0`} frameBorder="0"
                             allow="encrypted-media" allowFullScreen></iframe>
-                            <h4 className="card-title"></h4><br/>
-                            <p className="card-text text-justify" style={{overflow: 'auto'}}></p>
+
+                            <h4 className="card-title">{content.title}</h4><br/>
+                            <p className="card-text text-justify" style={{overflow: 'auto'}}>{content.desc}</p>
                            </Col>
 
                              <Col>
