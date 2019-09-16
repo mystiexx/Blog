@@ -9,11 +9,12 @@ class Header extends Component {
     render() {
         return (
                 <Navbar fixed="top" position="sticky" className="navbar">
-                    <Navbar.Brand href=""><img src={logo}/></Navbar.Brand>
+                    <Navbar.Brand><img src={logo} alt="logo"/></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto nav-link">
-                    <Nav.Link href=""className="link"><Link to="/" className="link-text" style={{color: 'black'}}>Home</Link></Nav.Link>
+                    <Nav.Link className="link">
+                        <Link to="/" className="link-text" style={{color: 'black'}}>Home</Link></Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                     </Navbar>
