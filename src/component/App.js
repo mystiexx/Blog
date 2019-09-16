@@ -9,18 +9,18 @@ import './stylesheet/search-box.css'
 
 
 class App extends Component {
-  
+
   render() {
-    
+
 
     return (
       <Router>
-      <div>
-      <Header />
-      <Route path="/" exact component={Home}/>
+        <div>
+          <Header />
+          <Route path="/" exact component={Home} />
 
-          <Route path="/stories/:id" component={Player} />      
-      </div>
+          <Route path="/stories/:id" component={Player} />
+        </div>
       </Router>
     )
   }

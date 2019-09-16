@@ -1,61 +1,84 @@
 import React, { Component } from 'react'
 import color from '../images/color.png'
-import {Container, Row, Col} from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class Player extends Component {
-  constructor(){
+  constructor() {
     super()
-    this.state={
-      content: {},
+    this.state = {
+      content: '',
+      other: [],
     }
   }
 
-    componentDidMount(){
-      const {match} = this.props
-      const data = fetch(`http://localhost:6530/feed/${match.params.id}`)
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            content: data
-          })
+  componentWillMount() {
+    fetch('http://localhost:6530/feed')
+      .then(response => response.json())
+      .then(feeds => {
+        this.setState({
+          other: feeds.feeds
         })
-      }
-    render() {
-      const {content} = this.state
-        return (
-          
-            <div>
-               <Container className="mt-5">
-                <section id="video">
-                       <Row>
-                           <Col> 
-                           <iframe className="fixed-top position-static mt-5" style={{width: 560, height:315}} src={`https://www.youtube.com/embed/QhBnZ6NPOY0`} frameBorder="0"
-                            allow="encrypted-media" allowFullScreen></iframe>
+      })
 
-                            <h4 className="card-title">{content.title}</h4><br/>
-                            <p className="card-text text-justify" style={{overflow: 'auto'}}>{content.desc}</p>
-                           </Col>
+  }
 
-                             <Col>
-                             <main className="mt-4">
-                             <h2 className="display-5">Other News </h2>
-                             <article className="d-flex inline-block">
-                            
-                        <img src={color} className="thumb" />
-                        <div className="details">
-                            <h4 className="display-5">Stewie Griffin Sings Bad Guy by Billie Eilish</h4>
-                            <p className="card-subtitle">Description</p>
-                        </div>
-                        </article>
-                        </main>
-                              </Col>
 
-                           </Row>
-                    </section>
-           </Container>
-            </div>
+  componentWillUpdate() {
+    const { match } = this.props
+    fetch(`http://localhost:6530/feed/${match.params.id}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          content: data
+        })
+      })
+  }
 
-        )
-    }
+  render() {
+    const { content } = this.state
+    return (
+
+      <div>
+        <Container className="mt-5">
+          <section id="video">
+            <Row>
+              <Col className="d-flex flex-column">
+                <div className="d-flex flex-sm-wrap">
+                <iframe className="position-sticky mt-5" alt="video"
+                  style={{ width: 560, height: 315 }} src={`https://www.youtube.com/embed/QhBnZ6NPOY0`} frameBorder="0"
+                  allow="encrypted-media" allowFullScreen></iframe>
+                  </div>
+
+                <h4 className="card-title">{content.title}</h4><br />
+                <p className="card-text text-justify overflow-auto">{content.desc}</p>
+              </Col>
+
+              <Col>
+                <main className="mt-4">
+                  <h2 className="display-5">Other News </h2>
+                  <div className="other-news overflow-auto">
+                  {this.state.other.map((data, i)=>
+                  <Link to={`/stories/${data._id}`} className='text-dark stories-text' style={{textDecoration: 'none'}}>  
+                  <article className="d-flex inline-block" key={i}>
+                    <img src={color} className="thumb" alt="news" />
+                    <div className="details">
+                      <h4 className="display-5">{data.title}</h4>
+                      <p className="card-subtitle">{data.tagline}</p>
+                    </div>
+                  </article>
+                  </Link>
+                  )}
+                  </div>
+                </main>
+              </Col>
+
+            </Row>
+          </section>
+        </Container>
+      </div>
+
+    )
+  }
 }
 export default Player;

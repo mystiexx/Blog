@@ -2,23 +2,50 @@ import React, { Component } from 'react'
 import bottom from '../images/bottom.png'
 import SearchBar from './Search';
 import Body from './Body'
+import Paginate from '../Pages/Pagination'
 
 class Home extends Component {
     constructor() {
         super()
         this.state = {
-          searchfield: ''
+            searchfield: '',
+            content: [],
+            current_page: 1,
+            posts_perpage: 20,
         }
-      }
-      onSearchChange = (event) => {
+    }
+    onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value })
-    
-      }
-    
-      
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:6530/feed')
+            .then(response => response.json())
+            .then(feeds => {
+                this.setState({
+                    content: feeds.feeds
+                })
+            })
+    }
+
+
     render() {
+        const { current_page, posts_perpage } = this.state;
+
+        const indexOfLastPost = current_page * posts_perpage;
+    
+        const indexOFFirstPost = indexOfLastPost - posts_perpage;
+    
+        const currentPosts = this.state.content.slice(indexOFFirstPost, indexOfLastPost);
+    
+        const paginate = (pageNumber) => {
+          this.setState({
+            current_page: pageNumber,
+          })
+        }
+
         return (
-            <div>
+            <div className='d-flex flex-column'>
                 <section id="banner">
                     <div className="container justify-content-center pb-5 ">
                         <div className="row">
@@ -30,11 +57,13 @@ class Home extends Component {
                         </div>
 
                     </div>
-                    <img src={bottom} className="bottom-img" />
+                    <img src={bottom} className="bottom-img" alt="images" />
                 </section>
-                <br/>
-                <SearchBar searchChange={this.onSearchChange}/>,
-                <Body />
+                <div className='container-fluid d-flex flex-column flex-sm-wrap'> 
+                <SearchBar searchChange={this.onSearchChange} />
+                <Body currentPosts={currentPosts} />
+                <Paginate posts_perpage={posts_perpage} totalPosts={this.state.content.length} paginate={paginate}/>
+                </div>
             </div>
 
         )

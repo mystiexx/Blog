@@ -153,3 +153,10 @@
     text-decoration: none;
 }
 
+.content-card {
+    width: 18em;
+}
+
+.other-news {
+    height: 400px;
+}
