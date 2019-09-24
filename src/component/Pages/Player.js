@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import color from '../images/color.png'
+import Form from 'react-bootstrap/Form'
 import { Container, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
@@ -52,6 +52,16 @@ class Player extends Component {
 
                 <h4 className="card-title">{content.title}</h4><br />
                 <p className="card-text text-justify overflow-auto">{content.desc}</p>
+                <hr/>
+          <h6 className='text-muted mt-4'>Add Comment</h6>
+                        <Form>
+                            <Form.Group>
+                                <Form.Control as="textarea" rows="2" />
+                            </Form.Group>
+                        </Form>
+                        <div className='d-flex flex-wrap pb-5'>
+                    <Button variant='primary' className='mt-3'>Add Comment</Button>
+                </div>
               </Col>
 
               <Col>
@@ -61,7 +71,7 @@ class Player extends Component {
                   {this.state.other.map((data, i)=>
                   <Link to={`/stories/${data._id}`} className='text-dark stories-text' style={{textDecoration: 'none'}}>  
                   <article className="d-flex inline-block" key={i}>
-                    <img src={color} className="thumb" alt="news" />
+                    <img src={data.imageUrl} className="thumb" alt="news" />
                     <div className="details">
                       <h4 className="display-5">{data.title}</h4>
                       <p className="card-subtitle">{data.tagline}</p>
