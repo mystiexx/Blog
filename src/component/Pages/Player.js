@@ -13,7 +13,7 @@ class Player extends Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:6530/feed')
+    fetch('http://urbanplotz.herokuapp.com/feed')
       .then(response => response.json())
       .then(feeds => {
         this.setState({
@@ -26,7 +26,7 @@ class Player extends Component {
 
   componentWillUpdate() {
     const { match } = this.props
-    fetch(`http://localhost:6530/feed/${match.params.id}`)
+    fetch(`http://urbanplotz.herokuapp.com/feed/${match.params.id}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
