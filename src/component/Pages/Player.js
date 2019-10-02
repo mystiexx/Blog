@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 class Player extends Component {
@@ -13,6 +13,14 @@ class Player extends Component {
   }
 
   componentWillMount() {
+    const { match } = this.props
+      fetch(`https://urbanplotz.herokuapp.com/feed/${match.params.id}`)
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            content: data
+          })
+        })
     fetch('https://urbanplotz.herokuapp.com/feed')
       .then(response => response.json())
       .then(feeds => {
@@ -21,8 +29,7 @@ class Player extends Component {
         })
       })
 
-  }
-
+      
 
   componentWillUpdate() {
     const { match } = this.props
@@ -35,6 +42,7 @@ class Player extends Component {
       })
   }
 
+
   render() {
     const { content } = this.state
     return (
@@ -45,13 +53,16 @@ class Player extends Component {
             <Row>
               <Col className="d-flex flex-column">
                 <div className="d-flex flex-sm-wrap">
-                <iframe 
-                    width="560" height="315" 
-                    className="position-sticky mt-5"
-                    src={content.videoUrl} frameborder="0" 
+                  {content.videoUrl && 
+                    <iframe width="560" height="315" 
+                    className="position-sticky mt-5" alt="video"
+                    src={content.videoUrl}
+                    title="Youtube video"
+                    frameborder="0" 
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen></iframe>
-                  </div>
+                  }
+                
 
                 <h4 className="card-title">{content.title}</h4><br />
                 <p className="card-text text-justify overflow-auto">{content.desc}</p>
