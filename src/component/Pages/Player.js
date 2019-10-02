@@ -26,7 +26,7 @@ class Player extends Component {
 
   componentWillUpdate() {
     const { match } = this.props
-    fetch(`http://urbanplotz.herokuapp.com/feed/${match.params.id}`)
+    fetch(`https://urbanplotz.herokuapp.com/feed/${match.params.id}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
