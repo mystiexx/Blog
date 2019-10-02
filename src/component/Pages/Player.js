@@ -13,7 +13,7 @@ class Player extends Component {
   }
 
   componentWillMount() {
-    fetch('http://urbanplotz.herokuapp.com/feed')
+    fetch('https://urbanplotz.herokuapp.com/feed')
       .then(response => response.json())
       .then(feeds => {
         this.setState({
