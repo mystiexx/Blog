@@ -13,6 +13,15 @@ class Player extends Component {
   }
 
   componentWillMount() {
+    const { match } = this.props
+      fetch(`https://urbanplotz.herokuapp.com/feed/${match.params.id}`)
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            content: data
+          })
+        })
+
     fetch('https://urbanplotz.herokuapp.com/feed')
       .then(response => response.json())
       .then(feeds => {
@@ -21,19 +30,10 @@ class Player extends Component {
         })
       })
 
+      
+
   }
 
-
-  componentWillUpdate() {
-    const { match } = this.props
-    fetch(`https://urbanplotz.herokuapp.com/feed/${match.params.id}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          content: data
-        })
-      })
-  }
 
   render() {
     const { content } = this.state
@@ -45,9 +45,16 @@ class Player extends Component {
             <Row>
               <Col className="d-flex flex-column">
                 <div className="d-flex flex-sm-wrap">
-                <iframe className="position-sticky mt-5" alt="video"
-                  style={{ width: 560, height: 315 }} src={`${content.videoUrl}`} frameBorder="0"
-                  allow="encrypted-media" allowFullScreen></iframe>
+                  {content.videoUrl && 
+                    <iframe width="560" height="315" 
+                    className="position-sticky mt-5" alt="video"
+                    src={content.videoUrl}
+                    title="Youtube video"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                  }
+                
                   </div>
 
                 <h4 className="card-title">{content.title}</h4><br />
