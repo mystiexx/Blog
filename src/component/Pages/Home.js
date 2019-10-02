@@ -19,7 +19,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        fetch('http://urbanplotz.herokuapp.com/feed')
+        fetch('https://urbanplotz.herokuapp.com/feed')
             .then(response => response.json())
             .then(feeds => {
                 this.setState({
