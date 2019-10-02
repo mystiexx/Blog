@@ -45,9 +45,12 @@ class Player extends Component {
             <Row>
               <Col className="d-flex flex-column">
                 <div className="d-flex flex-sm-wrap">
-                <iframe className="position-sticky mt-5" alt="video"
-                  style={{ width: 560, height: 315 }} src={`https://www.youtube.com/embed/QhBnZ6NPOY0`} frameBorder="0"
-                  allow="encrypted-media" allowFullScreen></iframe>
+                <iframe 
+                    width="560" height="315" 
+                    className="position-sticky mt-5"
+                    src={content.videoUrl} frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
                   </div>
 
                 <h4 className="card-title">{content.title}</h4><br />
