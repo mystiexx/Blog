@@ -21,7 +21,6 @@ class Player extends Component {
             content: data
           })
         })
-
     fetch('https://urbanplotz.herokuapp.com/feed')
       .then(response => response.json())
       .then(feeds => {
@@ -32,6 +31,15 @@ class Player extends Component {
 
       
 
+  componentWillUpdate() {
+    const { match } = this.props
+    fetch(`https://urbanplotz.herokuapp.com/feed/${match.params.id}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          content: data
+        })
+      })
   }
 
 
@@ -55,7 +63,6 @@ class Player extends Component {
                     allowfullscreen></iframe>
                   }
                 
-                  </div>
 
                 <h4 className="card-title">{content.title}</h4><br />
                 <p className="card-text text-justify overflow-auto">{content.desc}</p>
